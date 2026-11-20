@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NATSR Unified - Survey Photos</title>
+  <!-- Same theme switch as the results page: the panel's localStorage mirror. -->
+  <script src="../results/theme-init.js"></script>
+  <link rel="stylesheet" href="viewer.css" />
+</head>
+<body>
+  <!-- Opened by the side panel's "View photos" (autopilot case types only):
+         viewer.html?case=<inspection GUID>&tab=<survey tab id>[&photo=<photoId>]
+       Reads the survey's autopilot record from chrome.storage.local and
+       never writes to LossControl360. "Show on page" only scrolls the survey
+       tab's Order/Edit Photos panel to the photo. -->
+  <header class="vtop">
+    <span class="vbrand">NATSR Unified</span>
+    <div class="vsurvey">
+      <b id="v-survey">Loading…</b>
+      <span id="v-sub" class="muted"></span>
+    </div>
+    <span class="vspacer"></span>
+    <span id="v-when" class="muted small"></span>
+  </header>
+
+  <div class="vbar">
+    <div class="vfilters" id="v-filters" role="group" aria-label="Photo filter"></div>
+    <input id="v-search" type="search" placeholder="Search labels, descriptions or photo id"
+           aria-label="Search photos" />
+    <div class="vsize" role="radiogroup" aria-label="Tile size">
+      <span class="muted small">Size</span>
+      <button type="button" role="radio" data-size="s" aria-checked="false">S</button>
+      <button type="button" role="radio" data-size="m" aria-checked="true">M</button>
+      <button type="button" role="radio" data-size="l" aria-checked="false">L</button>
+    </div>
+  </div>
+
+  <main id="v-grid" class="vgrid" data-size="m"></main>
+
+  <!-- Photo viewer: zoom / pan, filmstrip, and the AI's notes beside it -->
+  <div id="pv" class="pv" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <div class="pv-main">
+      <div class="pv-top">
+        <span class="pv-cap" id="pv-cap"></span>
+        <button type="button" class="pv-btn" data-pv="prev" title="Previous (←)" aria-label="Previous photo">‹</button>
+        <span class="pv-text" id="pv-pos"></span>
+        <button type="button" class="pv-btn" data-pv="next" title="Next (→)" aria-label="Next photo">›</button>
+        <span class="pv-sep"></span>
+        <button type="button" class="pv-btn" data-pv="out" title="Zoom out (−)" aria-label="Zoom out">−</button>
+        <span class="pv-text" id="pv-zoom">100%</span>
+        <button type="button" class="pv-btn" data-pv="in" title="Zoom in (+)" aria-label="Zoom in">+</button>
+        <button type="button" class="pv-btn" data-pv="fit" title="Fit (0)">Fit</button>
+        <button type="button" class="pv-btn" data-pv="info" title="Show or hide notes (I)">Notes</button>
+        <button type="button" class="pv-btn" data-pv="close" title="Close (Esc)" aria-label="Close">✕</button>
+      </div>
+      <div class="pv-stage" id="pv-stage"><img id="pv-img" alt="" draggable="false" /></div>
+      <div class="pv-strip" id="pv-strip" aria-label="All photos"></div>
+    </div>
+    <aside class="pv-info" id="pv-info"></aside>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="viewer.js"></script>
+</body>
+</html>
