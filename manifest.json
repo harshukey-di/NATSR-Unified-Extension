@@ -13,9 +13,7 @@
   ],
   "host_permissions": [
     "https://natsrunified.losscontrol360.com/*",
-    "https://qagent.dhaninfo.ai/*",
-    "https://YOUR-PRICE-PROXY.example.com/*",
-    "http://127.0.0.1/*"
+    "https://qagent.dhaninfo.ai/*"
   ],
   "action": {
     "default_title": "Open NATSR Unified",

@@ -309,26 +309,17 @@ async function callKnowledgeBaseApi(surveyNumber, pageType, data) {
 
 // ── Price quote (CrossCover) ─────────────────────────────────────────
 //
-// The pricing API needs a secret key (X-Ext-Key) that must not ship inside an
-// extension, so the extension holds no key. It calls a small proxy
-// (price-proxy/ in this repo) that holds the key and forwards the request.
-//
-// SET this to your proxy, and put the same host in manifest.json
-// host_permissions.
-const PRICE_PROXY_URL = `http://127.0.0.1:8000/price-quote`;
+// Calls the pricing API directly, with no key.
+const PRICE_API_URL = `${API_BASE}/lms/pricing/price-quote`;
 // Each quote runs a live web search for the address.
 const PRICE_TIMEOUT_MS = 90000;
 
 async function callPriceQuoteApi(inputs) {
-  if (PRICE_PROXY_URL.includes('YOUR-PRICE-PROXY')) {
-    return { ok: false, status: 0, detail: 'The price proxy is not set up yet (PRICE_PROXY_URL in background.js).' };
-  }
-
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), PRICE_TIMEOUT_MS);
   let res;
   try {
-    res = await fetch(PRICE_PROXY_URL, {
+    res = await fetch(PRICE_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
