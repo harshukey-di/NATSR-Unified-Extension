@@ -1,0 +1,5 @@
+# Local dev-only tooling - never ship this
+dev-backend/
+node_modules/
+.env
+.vscode
