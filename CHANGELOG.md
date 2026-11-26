@@ -2,9 +2,6 @@
 
 Major changes only.
 
-**Testing status:** none of this has been loaded in Chrome or run against the
-live backend. It was checked for syntax, with small Node scripts using stubs.
-
 ---
 
 ## 1. Any form and any survey type
